@@ -94,7 +94,7 @@ module.exports = function(grunt) {
             stripBanners: true
         },
         dist: {
-            src: 'src/js/medium-editor.js',
+            src: srcFiles,
             dest: 'dist/js/<%= pkg.name %>.js'
         }
     };
