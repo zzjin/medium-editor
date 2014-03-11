@@ -3,11 +3,14 @@
 module.exports = function(grunt) {
     'use strict';
 
-    var gruntConfig = {
-        pkg: grunt.file.readJSON('package.json')
-    };
+    var config = {
+            pkg: grunt.file.readJSON('package.json')
+        },
+        srcFiles = ['src/js/util.js',
+                    'src/js/selection.js',
+                    'src/js/core.js'];
 
-    gruntConfig.jslint = {
+    config.jslint = {
         files: ['src/js/**/*.js', 'spec/*.js', 'Gruntfile.js'],
         directives: {
             browser: true,
@@ -17,9 +20,9 @@ module.exports = function(grunt) {
         }
     };
 
-    gruntConfig.jasmine = {
+    config.jasmine = {
         suite: {
-            src: 'src/js/**/*.js',
+            src: srcFiles,
             options: {
                 specs: 'spec/*.spec.js',
                 helpers: 'spec/helpers/*.js',
@@ -38,17 +41,17 @@ module.exports = function(grunt) {
         }
     };
 
-    gruntConfig.uglify = {
+    config.uglify = {
         options: {
             report: 'gzip'
         },
         build: {
-            src: 'src/js/medium-editor.js',
+            src: srcFiles,
             dest: 'dist/js/<%= pkg.name %>.min.js'
         }
     };
 
-    gruntConfig.csslint = {
+    config.csslint = {
         strict: {
             options: {
                 'box-sizing': false,
@@ -58,7 +61,7 @@ module.exports = function(grunt) {
         }
     };
 
-    gruntConfig.compass = {
+    config.compass = {
         dist: {
             options: {
                 sassDir: 'src/sass',
@@ -69,7 +72,7 @@ module.exports = function(grunt) {
         }
     };
 
-    gruntConfig.watch = {
+    config.watch = {
         scripts: {
             files: ['src/js/**/*.js', 'spec/*.js', 'Gruntfile.js'],
             tasks: ['js'],
@@ -86,7 +89,7 @@ module.exports = function(grunt) {
         }
     };
 
-    gruntConfig.concat = {
+    config.concat = {
         options: {
             stripBanners: true
         },
@@ -96,15 +99,15 @@ module.exports = function(grunt) {
         }
     };
 
-    gruntConfig.plato = {
+    config.plato = {
         feed: {
             files: {
-                'reports/plato': ['src/js/medium-editor.js']
+                'reports/plato': srcFiles
             }
         }
     };
 
-    grunt.initConfig(gruntConfig);
+    grunt.initConfig(config);
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-jslint');
