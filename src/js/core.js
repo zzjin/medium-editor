@@ -13,25 +13,33 @@ if (typeof module === 'object') {
     'use strict';
 
     MediumEditor.prototype = {
+
         init: function (elements, options) {
-            this.elements = typeof elements === 'string' ? document.querySelectorAll(elements) : elements;
-            if (this.elements.nodeType === 1) {
-                this.elements = [this.elements];
-            }
-            if (this.elements.length === 0) {
+            if (!this.initElements(elements)) {
                 return;
             }
             this.isActive = true;
             this.id = document.querySelectorAll('.medium-editor-toolbar').length + 1;
             this.options = mediumEditor.util.extend(options, mediumEditor.util.defaults);
-            return this.initElements()
+            return this.initEditor()
                        .bindSelect()
                        .bindPaste()
                        .setPlaceholders()
                        .bindWindowActions();
         },
 
-        initElements: function () {
+        initElements: function (elements) {
+            this.elements = typeof elements === 'string' ? document.querySelectorAll(elements) : elements;
+            if (this.elements.nodeType === 1) {
+                this.elements = [this.elements];
+            }
+            if (this.elements.length === 0) {
+                return false;
+            }
+            return true;
+        },
+
+        initEditor: function () {
             var i,
                 addToolbar = false;
             for (i = 0; i < this.elements.length; i += 1) {

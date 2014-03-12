@@ -21,19 +21,19 @@ describe('Initialization TestCase', function () {
         });
 
         it('should do nothing when selector does not return any elements', function () {
-            spyOn(MediumEditor.prototype, 'initElements');
+            spyOn(MediumEditor.prototype, 'initEditor');
             spyOn(MediumEditor.prototype, 'initToolbar');
             spyOn(MediumEditor.prototype, 'bindSelect');
             spyOn(MediumEditor.prototype, 'bindButtons');
             spyOn(MediumEditor.prototype, 'bindAnchorForm');
             var editor = new MediumEditor('.test');
             expect(editor.id).toBe(undefined);
-            expect(editor.initElements).not.toHaveBeenCalled();
+            expect(editor.initEditor).not.toHaveBeenCalled();
             expect(editor.initToolbar).not.toHaveBeenCalled();
             expect(editor.bindSelect).not.toHaveBeenCalled();
             expect(editor.bindButtons).not.toHaveBeenCalled();
             expect(editor.bindAnchorForm).not.toHaveBeenCalled();
-            expect(editor.initElements).not.toHaveBeenCalled();
+            expect(editor.initEditor).not.toHaveBeenCalled();
         });
     });
 
@@ -112,19 +112,19 @@ describe('Initialization TestCase', function () {
         });
 
         it('should call the default initialization methods', function () {
-            spyOn(MediumEditor.prototype, 'initElements').andCallThrough();
+            spyOn(MediumEditor.prototype, 'initEditor').andCallThrough();
             spyOn(MediumEditor.prototype, 'initToolbar').andCallThrough();
             spyOn(MediumEditor.prototype, 'bindSelect').andCallThrough();
             spyOn(MediumEditor.prototype, 'bindButtons').andCallThrough();
             spyOn(MediumEditor.prototype, 'bindAnchorForm').andCallThrough();
             var editor = new MediumEditor('.editor');
             expect(editor.id).toBe(1);
-            expect(editor.initElements).toHaveBeenCalled();
+            expect(editor.initEditor).toHaveBeenCalled();
             expect(editor.initToolbar).toHaveBeenCalled();
             expect(editor.bindSelect).toHaveBeenCalled();
             expect(editor.bindButtons).toHaveBeenCalled();
             expect(editor.bindAnchorForm).toHaveBeenCalled();
-            expect(editor.initElements).toHaveBeenCalled();
+            expect(editor.initEditor).toHaveBeenCalled();
         });
 
         it('should set the ID according to the numbers of editors instantiated', function () {
