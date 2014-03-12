@@ -4,6 +4,8 @@ var mediumEditor = window.mediumEditor || {};
     'use strict';
 
     mediumEditor.util = {
+        // TODO: mediumEditor.options
+        //       editor + toolbar
         defaults: {
             allowMultiParagraphSelection: true,
             anchorInputPlaceholder: 'Paste or type a link',
@@ -145,6 +147,7 @@ if (typeof module === 'object') {
     'use strict';
 
     MediumEditor.prototype = {
+
         init: function (elements, options) {
             if (!this.initElements(elements)) {
                 return;
