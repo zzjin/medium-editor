@@ -100,7 +100,7 @@ module.exports = function(grunt) {
     };
 
     config.plato = {
-        feed: {
+        mediumEditor: {
             files: {
                 'reports/plato': srcFiles
             }
