@@ -44,7 +44,6 @@ if (typeof module === 'object') {
                 return;
             }
             this.isActive = true;
-            this.parentElements = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'pre'];
             this.id = document.querySelectorAll('.medium-editor-toolbar').length + 1;
             this.options = mediumEditor.util.extend(options, this.defaults);
             return this.initElements()
@@ -103,7 +102,7 @@ if (typeof module === 'object') {
                     node = mediumEditor.selection.getStartNode();
                     tagName = node.tagName.toLowerCase();
                     if (!(self.options.disableReturn || this.getAttribute('data-disable-return')) &&
-                            tagName !== 'li' && !self.isListItemChild(node)) {
+                            tagName !== 'li' && !mediumEditor.util.isListItemChild(node)) {
                         document.execCommand('formatBlock', false, 'p');
                         if (tagName === 'a') {
                             document.execCommand('unlink', false, null);
@@ -112,23 +111,6 @@ if (typeof module === 'object') {
                 }
             });
             return this;
-        },
-
-        isListItemChild: function (node) {
-            var parentNode = node.parentNode,
-                tagName = parentNode.tagName.toLowerCase();
-            while (this.parentElements.indexOf(tagName) === -1 && tagName !== 'div') {
-                if (tagName === 'li') {
-                    return true;
-                }
-                parentNode = parentNode.parentNode;
-                if (parentNode && parentNode.tagName) {
-                    tagName = parentNode.tagName.toLowerCase();
-                } else {
-                    return false;
-                }
-            }
-            return false;
         },
 
         bindReturn: function (index) {
@@ -422,7 +404,7 @@ if (typeof module === 'object') {
             if (!parentNode.tagName) {
                 parentNode = this.selection.anchorNode.parentNode;
             }
-            while (parentNode.tagName !== undefined && this.parentElements.indexOf(parentNode.tagName.toLowerCase) === -1) {
+            while (parentNode.tagName !== undefined && mediumEditor.util.parentElements.indexOf(parentNode.tagName.toLowerCase) === -1) {
                 this.activateButton(parentNode.tagName.toLowerCase());
                 parentNode = parentNode.parentNode;
             }
@@ -525,7 +507,7 @@ if (typeof module === 'object') {
                 tagName = el.tagName.toLowerCase();
             }
 
-            while (el && this.parentElements.indexOf(tagName) === -1) {
+            while (el && mediumEditor.util.parentElements.indexOf(tagName) === -1) {
                 el = el.parentNode;
                 if (el && el.tagName) {
                     tagName = el.tagName.toLowerCase();

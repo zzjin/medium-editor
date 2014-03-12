@@ -4,6 +4,8 @@ var mediumEditor = window.mediumEditor || {};
     'use strict';
 
     mediumEditor.util = {
+        parentElements: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'pre'],
+
         extend: function extend(b, a) {
             var prop;
             if (b === undefined) {
@@ -15,6 +17,23 @@ var mediumEditor = window.mediumEditor || {};
                 }
             }
             return b;
+        },
+
+        isListItemChild: function (node) {
+            var parentNode = node.parentNode,
+                tagName = parentNode.tagName.toLowerCase();
+            while (this.parentElements.indexOf(tagName) === -1 && tagName !== 'div') {
+                if (tagName === 'li') {
+                    return true;
+                }
+                parentNode = parentNode.parentNode;
+                if (parentNode && parentNode.tagName) {
+                    tagName = parentNode.tagName.toLowerCase();
+                } else {
+                    return false;
+                }
+            }
+            return false;
         }
     };
 
